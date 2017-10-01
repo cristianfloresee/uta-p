@@ -1,0 +1,345 @@
+// http://ionicframework.com/docs/v2/theming/
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+@import "../theme/icons";
+
+//STATUS-BAR TRANSPARENT (ANDROID)
+.platform-android {
+  .ion-page {
+    ion-header {
+      //padding-top: $cordova-md-statusbar-padding;
+      padding-top: 24px;;
+    } 
+  }
+}
+//
+
+// ESTILOS PARA LOS ERRORES DE LOS FORMULARIOS
+.form-error {
+  border-radius: 2px 2px 2px 2px;
+  background-color: color($colors, danger);
+  color: color($colors, light); //TEXTO DE ERROR
+  margin-left: 10rem;
+  padding: 1px 5px;
+  text-align: center;
+  
+  p{
+    margin: 0px;
+  }
+  
+}
+
+
+
+
+.image-cropper {
+    max-width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.rounded {
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    background-position: 0% 25%;
+    background-size:cover;
+
+}
+
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+@import "../assets/animate/animate.scss";
+@import "../assets/font-icons/scss/font-awesome.scss";
+//Colors Theme
+$color-one: #3C3B5C;
+$color-two: #D53939;
+$color-three: #FFB563;
+$color-four: #7B3C59;
+$color-five: #ffffff;
+$im: !important;
+
+//Stylize scroll side menu
+// --------------------------------------------------
+.scroll-content {
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 1px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-corner {}
+}
+//Stylize ion-menu
+ion-menu {
+  //header
+  // --------------------------------------------------
+  .header {
+    background-color: $color-one $im;
+    background-image: url("../assets/img/bg.jpg");
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 300px;
+    width: 100%;
+    position: relative;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 98%, 0 80%);
+    //clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+
+    .headerContent {
+      background-color: hsla(242, 22%, 30%, 0.50) $im;
+      position: relative;
+      height: 100%;
+      align-items: center;
+      align-content: center;
+      display: table;
+      flex: auto;
+      width: 100%;
+      text-align: center;
+
+      .perfilPicture {
+        width: 150px;
+        height: 150px;
+        display: block;
+        margin: 10vw auto 0;
+        position: relative;
+        border-radius: 50%;
+        border: solid 10px hsla(240, 5%, 8%, 0.50);
+
+        img {
+          width: 100%;
+          border-radius: 50%;
+        }
+      }
+
+      h2 {
+        display: block;
+        margin: 0 auto;
+        color: #fff;
+        font-size: 1.5em;
+      }
+
+      small {
+        color: $color-five;
+        margin-top: 5px;
+        display: block;
+        font-size: 1.1em;
+        font-weight: 400;
+
+        i {
+          color: $color-three;
+        }
+      }
+    }
+  }
+
+  //Set animation if show side menu
+  //Understand that this method would be to reset the ion-menu
+  //component so that each time the animations become active again
+  // --------------------------------------------------
+  &.show-menu {
+    ion-content {
+      ion-list {
+        ion-item {
+          @include slideInRight( $duration: .1s, $function: ease, $fill: both );
+          //Countdown to view each object
+          &:nth-of-type(1) {
+            @include slideInRight( $delay: 0);
+          }
+
+          &:nth-of-type(2) {
+            @include slideInRight( $delay: .3s);
+          }
+
+          &:nth-of-type(3) {
+            @include slideInRight( $delay: .6s);
+          }
+
+          &:nth-of-type(4) {
+            @include slideInRight( $delay: .9s);
+          }
+
+           &:nth-of-type(5) {
+            @include slideInRight( $delay: 1.2s);
+          }
+
+           &:nth-of-type(6) {
+            @include slideInRight( $delay: 1.5s);
+          }
+
+          ion-badge {
+            @include bounceIn( $duration: .5s,$delay: 2s, $function: ease, $fill: both );
+            background-color: $color-three $im;
+          }
+        }
+      }
+      // Animate user photo
+      .perfilPicture {
+        @include bounceIn( $duration: .5s,$delay: .3s, $function: ease, $fill: both );
+      }
+    }
+  }
+
+  ion-content {
+
+    background-image: url("../assets/img/pattern.png");
+    background-position: left top;
+    background-repeat: repeat-y;
+    background-size: cover;
+
+    ion-list {
+      ion-item {
+        background-color: transparent $im;
+        color: #607D8B $im;
+        font-weight: 900 $im;
+
+        &:first-child {
+          border-top: none $im;
+        }
+
+        &:last-child {
+          border-bottom: none $im;
+        }
+
+        .item-inner {
+          border-color: #eee $im;
+        }
+
+        ion-label {
+          line-height: 30px;
+          padding-top: 5px;
+          padding-left: 15px;
+        }
+
+        i {
+          font-size: 1.5em $im;
+          width: 30px;
+          text-align: center;
+          color: hsla(200, 18%, 46%, 0.3);
+        }
+      }
+    }
+  }
+  // footer copyright
+  footer {
+    text-align: center;
+    color: #607D8B $im;
+    padding-bottom: 1.5em;
+  }
+}
+
+//glow animation
+.glow {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  left: 13px;
+  top: 13px;
+  width: 20px;
+  height: 20px;
+  z-index: 100;
+
+  span {
+    font-size: 0.95em;
+    color: #fff;
+    display: block;
+    height: 20px;
+    background-color: red;
+    line-height: 20px;
+    font-weight: 800;
+    padding-left: 4px;
+  }
+
+  .reveal-circle {
+    width: 20px;
+    height: 20px;
+    background-color: hsla(88, 50%, 53%, 0.5);
+    border: solid 5px hsla(240, 5%, 8%, 0.3);
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    top: 3px;
+    left: 0;
+  }
+
+  .reveal-glow {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(139, 195, 74, 0.80);
+    -webkit-animation: reveal-glowing 1.6s linear 0s infinite normal;
+    animation: reveal-glowing 1.6s linear 0s infinite normal;
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 1;
+    z-index: 1;
+    position: absolute;
+    top: 3px;
+    left: 0;
+  }
+}
+//Custom Animation
+@-webkit-keyframes reveal-glowing {
+  0% {
+    -webkit-transform: scale(0.6);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(3);
+    opacity: 0;
+  }
+}
+@keyframes reveal-glowing {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+

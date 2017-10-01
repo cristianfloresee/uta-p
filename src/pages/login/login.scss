@@ -1,0 +1,99 @@
+page-login {
+    $transparent-white: rgba(255, 255, 255, .6); //HEADER TRANSPARENTE
+    
+    .scroll-content {
+    overflow: hidden;
+  }
+  
+  .toolbar-content,
+  span {
+    color: white; //ICONOS BLANCOS
+  }
+  .toolbar-background,
+  ion-navbar,
+  ion-header {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+  .header-md::after,
+  .toolbar-background-ios {
+    background-image: none;
+    border-bottom: 0;
+  }
+  // Footer
+  ion-footer {
+    height: 47px;
+  }
+  .footer {
+    text-align: center;
+    background: #292729;
+    //background: rgba(255, 255, 255, .3);
+    min-height: 47px;
+
+  }
+
+  // Fullscreen animated rainbow gradient
+  ion-content {
+
+  }
+
+  // Content
+  .scroll-content {
+
+  }
+
+  // Input items
+  ion-item {
+    border-radius: 3px !important;
+    padding-left: 10px !important;
+    margin-bottom: 15px !important;
+    margin-bottom: 10px;
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, .2) !important;
+    font-size: 0.9em;
+  }
+   ::-webkit-input-placeholder {
+    color: white !important;
+  }
+  .item-inner {
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+  }
+  // --
+  .login-button {
+    text-transform: none;
+    border-radius: 3px !important;
+  }
+
+  .m{
+        margin-top: 20px;
+    }
+
+  ion-icon {
+    padding-right: 10px;
+    font-size: 2.2rem;
+  }
+
+  .myfont{
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 58px;
+      font-family: 'sp-title' !important;
+  }
+
+ input:invalid {
+    /*background-image: url(http://s27.postimg.org/ttonbaj5b/invalid.png);
+    background-position: right center;
+    background-repeat: no-repeat;*/
+  }
+  
+  input:required:valid {
+    /*background-image: url(http://s14.postimg.org/gaechg2e5/valid.png);
+    background-position: right center;
+    background-repeat: no-repeat;*/
+  }
+  
+  
+
+}

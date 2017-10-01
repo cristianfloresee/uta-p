@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Inicio</ion-title>
+  </ion-navbar>
+  
+  <!--<ion-toolbar no-border-top color="primary">
+      <ion-segment  [(ngModel)]="viewType" color="light">
+        <ion-segment-button value="list">
+          List view
+        </ion-segment-button>
+        <ion-segment-button value="grid">
+          Grid view
+        </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>-->
+</ion-header>
+
+<ion-content padding>
+  <img padding src="assets/img/logo-uta.png">
+  <button ion-button (click)="updateData()">Actualizar Datos </button>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-content padding style="background: black">
+  <div style="width: 100%; height: 40%; background: yellow;">
+
+  </div>
+  <div padding>
+
+    <div *ngIf="!loginForm.controls.rut.valid && (loginForm.controls.rut.dirty || loginForm.controls.rut.touched)">
+      <div class="form-error" [hidden]="!loginForm.controls.rut.errors.required">
+        <p>Campo requerido</p>
+      </div>
+      <div class="form-error" [hidden]="!loginForm.controls.rut.errors.incomplete_rut">
+        <p>Debe ingresar el RUT completo</p>
+      </div>
+      <div class="form-error" [hidden]="!loginForm.controls.rut.errors.rut_not_valid">
+        <p>El RUT ingresado es incorrecto</p>
+      </div>
+      <!--<div class="form-error" [hidden]="!loginForm.controls.rut.errors.rut_not_register">
+        <p>Usuario no registrado</p>
+      </div>
+      <div class="form-error" [hidden]="!loginForm.controls.rut.errors.wrong_pass">
+        <p>Contraseña no válida</p>
+      </div>-->
+    </div>
+
+    <form [formGroup]="loginForm" (submit)="login()">
+      <ion-item>
+        <ion-label><ion-icon name="ai-user2"></ion-icon></ion-label>
+        <ion-input type="text" class="inputName" formControlName="rut" placeholder="RUT" 
+            [class.invalid]="(!loginForm.controls.rut.valid && loginForm.controls.rut.touched)" maxlength="12" 
+            (input)="validRUT()"
+            (focus)="cleanRUT()" 
+            (blur)="checkRUT()" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><ion-icon name="ai-lock"></ion-icon></ion-label>
+        <ion-input type="password" formControlName="clave" placeholder="Contraseña" 
+        [class.invalid]="!loginForm.controls.clave.valid &&loginForm.controls.clave.dirty" minlegth="8" maxlength="15" required></ion-input>
+      </ion-item>
+      <button ion-button block [disabled]="!loginForm.valid" type="submit" class="login-button m animated rubberBand">INGRESAR</button>
+      
+    </form>
+
+  </div>
+
+</ion-content>

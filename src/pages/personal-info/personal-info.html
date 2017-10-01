@@ -1,0 +1,80 @@
+<ion-header no-border>
+    <ion-navbar transparent [hidden]="showToolbar"> 
+        <button ion-button menuToggle>
+          <ion-icon name="menu" color="light"></ion-icon>
+        </button>
+    </ion-navbar>
+</ion-header>
+
+<ion-content  no-padding  class="content" (ionScroll)="onScroll($event)" [class.transition]="transition"  >
+
+    <div class="profile-header"></div>
+    <div class="profile">
+      <div class="profile-box">
+
+        <ion-img  class="profile-image" src={{photoUrl}}></ion-img>
+
+        <ion-list no-lines padding-top >
+    
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon name="ai-user2" item-left></ion-icon>
+            </ion-col>
+            <ion-col col-4>
+              NOMBRE:
+            </ion-col>
+            <ion-col col-7>
+              {{user?.NOMBRE | capitalize}}
+            </ion-col>
+          </ion-row>
+          
+            
+            
+          
+
+    <button ion-item>
+      <ion-icon name="ai-flag" item-left></ion-icon>
+      NACIONALIDAD: {{user?.PAI_NACIONALIDAD | capitalize}}
+    </button>
+    
+    <button ion-item>
+      <ion-icon name="medical" item-left></ion-icon>
+      CIUDAD: {{user?.PNA_LNAC | capitalize}}
+    </button>
+
+    <button ion-item>
+      <i class="fa fa-id-card-o" item-left></i>
+     
+      RUT: {{user?.PER_NRUT}}
+    </button>
+
+    <button ion-item>
+      <ion-icon name="ai-users" item-left></ion-icon>
+      ESTADO CIVIL: {{user?.ECI_DSC}}
+    </button>
+
+    <button ion-item>
+      <ion-icon name="ai-phone" item-left></ion-icon>
+      CELULAR: {{user?.CELULAR}}
+    </button>
+
+    <button ion-item>
+      <ion-icon name="paw" item-left></ion-icon>
+      EMAIL: {{user?.PER_EMAIL}}
+    </button>
+
+    <button ion-item>
+      <ion-icon name="ai-male" item-left></ion-icon>
+      SEXO: {{user?.SEX_DSC}}
+    </button>
+
+    <button ion-item>
+      <ion-icon name="ai-calendar" item-left></ion-icon>
+      FECHA DE NACIMIENTO: {{user?.PNA_FNAC}}
+    </button>
+          </ion-list>
+
+      </div>
+    </div>
+
+</ion-content>

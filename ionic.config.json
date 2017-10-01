@@ -1,0 +1,14 @@
+{
+  "name": "UTAapp",
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/utaAPI",
+      "proxyUrl": "http://desasisaca.uta.cl/wwwregistraduria/public/movil/index"
+    }
+  ],
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

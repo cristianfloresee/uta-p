@@ -1,0 +1,274 @@
+<ion-header>
+   <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Asignaturas</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngFor="let periodo of periodos" class="container">
+      
+    <ion-item>
+      <h4><b>AÑO {{periodo.ANO}}</b></h4>
+    </ion-item>
+      
+    <div *ngFor="let semestre of periodo.SEMESTRES">
+      <ion-item class="tituloSemestre">
+        SEMESTRE {{semestre.SEMESTRE}}
+      </ion-item>
+      
+      <ion-item class="containerSemestre">
+      
+        <div class='containerMateria'>
+  
+          <ion-list class="accordion-list" *ngFor="let ins_key of inscripciones | keys">
+            <ion-list-header *ngFor="let inscripcion of inscripciones[semestre.PERIODO]; let j=index" no-lines no-padding>
+              
+              <button ion-item (click)="abrirAsignatura(semestre.PERIODO,j)" detail-none [ngClass]="{'section-active': inscripcion.open, 'section': !inscripcion.open}">
+                <ion-icon item-right ios="ios-arrow-forward" md="ios-arrow-forward" *ngIf="!inscripcion.open"></ion-icon>
+                <ion-icon item-right ios="ios-arrow-down" md="ios-arrow-down" *ngIf="inscripcion.open"></ion-icon>
+                <ion-row style="font-size: 14px; font-weight: bold;">
+                  <ion-col col-2>
+                    {{inscripcion.CODIGO}}
+                  </ion-col>
+                  <ion-col col-10>
+                    {{inscripcion.NOMBRE}}
+                  </ion-col>
+                </ion-row> 
+              </button>
+              
+              <ion-list *ngIf="inscripcion.open" class="tituloMateria" style="margin: 0px; padding: 0px 5px 5px 5px;">
+                       
+                <ion-list *ngFor="let tipo_clase of inscripcion.TIPOS" style="margin: 0px; padding-top: 8px;">
+                  
+                  <ion-item style="padding: 0px; font-size: 14px; font-weight: bold;">
+                    <ion-row>
+                      <ion-col col-6 offset-1>
+                        {{tipos_clases[tipo_clase.TIPO]}}
+                      </ion-col>
+                      <ion-col col-5>
+                        GRUPO {{tipo_clase.GRUPO}}
+                      </ion-col>
+                    </ion-row>   
+                  </ion-item>
+                  
+                  <div style="font-size: 12px">
+                    <div *ngFor="let docente of tipo_clase.DOCENTES">
+                      <ion-row>
+                        <ion-col col-9 style="font-size: 12px; font-weight: bold; padding-top:20px; padding-left:10px;">
+                          PROFESOR: {{docente.NOMBRE}}
+                        </ion-col>
+                        <ion-col col-3>
+                          <button ion-button>DETALLES</button>
+                        </ion-col>
+                      </ion-row>
+                    </div>
+
+                    <ion-list class="accordion-list">
+                      <ion-list-header no-lines no-padding>
+                      
+                        <button color="primary" ion-item (click)="abrirEvaluaciones(tipo_clase.CUR_CODIGO)" detail-none>
+                          <ion-icon item-right ios="ios-arrow-forward" md="ios-arrow-forward" *ngIf="!evaluaciones[tipo_clase.CUR_CODIGO].open"></ion-icon>
+                          <ion-icon item-right ios="ios-arrow-down" md="ios-arrow-down" *ngIf="evaluaciones[tipo_clase.CUR_CODIGO].open"></ion-icon>
+                          <ion-row style="font-size: 14px; font-weight: bold;">
+                            <ion-col col-12 style="text-align: center; padding-left: 0 !important; font-weight: bold;">
+                              EVALUACIONES
+                            </ion-col>
+                          </ion-row>
+                        </button>                      
+                        
+                        
+                        <ion-list *ngIf="evaluaciones[tipo_clase.CUR_CODIGO].open" no-padding style="margin: 0px;">
+
+                          <div *ngIf="evaluaciones[tipo_clase.CUR_CODIGO].length==0">
+                            <ion-row>
+                              <ion-col col-12 style="text-align: center;">
+                                No hay registro de Evaluaciones
+                              </ion-col>
+                            </ion-row>
+                          </div>
+
+                          <div *ngFor="let tipo_evaluacion of evaluaciones[tipo_clase.CUR_CODIGO]">
+                            
+                            <ion-row style="background-color: #7986cb; color: white;">
+                              <ion-col col-6 offset-1>
+                                {{tipo_evaluacion.NOMBRE}}
+                              </ion-col>
+                              <ion-col col-2>
+                                PONDERACIÓN: {{tipo_evaluacion.PONDERACION}}%
+                              </ion-col>
+                            </ion-row>
+
+                            <ion-row style="background-color: #9fa8da; color: white;">
+                              <ion-col col-4 offset-2>
+                                Actividad
+                              </ion-col>
+                              <ion-col col-3>
+                                Ponderación
+                              </ion-col>
+                              <ion-col col-3>
+                                Nota
+                              </ion-col>
+                            </ion-row>
+                              
+                            <div *ngFor="let evaluacion of tipo_evaluacion?.EVALUACIONES">
+                              
+                              <ion-row style="font-size: 12px">
+                                <ion-col col-4 offset-2>
+                                  {{evaluacion.NOMBRE}}
+                                </ion-col>
+                                <ion-col col-3 *ngIf="tipo_evaluacion.IGUAL_PONDERACION == 0; else notSame">
+                                  {{evaluacion.PONDERACION}}%
+                                </ion-col>
+                                <ng-template #notSame>
+                                  <ion-col col-3>
+                                    --
+                                  </ion-col>
+                                </ng-template>
+                                <ion-col col-3>
+                                  {{evaluacion.EVALUACION}}
+                                </ion-col>
+                              </ion-row>
+                              
+                            </div>
+                            
+                          </div>
+
+                        </ion-list>
+                      </ion-list-header>
+                    </ion-list>
+
+                    
+                    <button color="primary" ion-item (click)="abrirAsistencia(tipo_clase.CUR_CODIGO)" detail-none>
+                      <ion-icon item-right ios="ios-arrow-forward" md="ios-arrow-forward" *ngIf="!asistencia[tipo_clase.CUR_CODIGO].open"></ion-icon>
+                      <ion-icon item-right ios="ios-arrow-down" md="ios-arrow-down" *ngIf="asistencia[tipo_clase.CUR_CODIGO].open"></ion-icon>
+                      <ion-row style="font-size: 14px; font-weight: bold;">
+                        <ion-col col-12 style="text-align: center; padding-left: 0 !important; font-weight: bold;">
+                          ASISTENCIA
+                        </ion-col>
+                      </ion-row>
+                    </button>  
+
+                    <ion-list *ngIf="asistencia[tipo_clase.CUR_CODIGO].open" no-padding style="margin: 0px;">
+                    
+                      <ion-row style="background-color: #9fa8da; color: white;">
+                        <ion-col col-3>
+                          Fecha
+                        </ion-col>
+                        <ion-col col-6>
+                          Contenido
+                        </ion-col>
+                        <ion-col col-3>
+                          Asistencia
+                        </ion-col>
+                      </ion-row>
+
+                      <div *ngFor="let clase of asistencia[tipo_clase.CUR_CODIGO]">
+                          
+                        <ion-row style="font-size: 12px">
+                          <ion-col col-3>
+                            {{clase.CLA_FECHA}}
+                          </ion-col>
+                          <ion-col col-6>
+                            <span style="font-size: 12px" [innerHtml]="clase.CLA_DESC"></span>
+                          </ion-col>
+                          <ion-col col-3>
+                            {{clase.CLA_NUM_ASIS}}
+                          </ion-col>
+                        </ion-row>
+                      
+                      </div>
+
+                    </ion-list>
+                    
+                    <button color="primary" ion-item (click)="abrirRecursos(tipo_clase.CUR_CODIGO)" detail-none>
+                      <ion-icon item-right ios="ios-arrow-forward" md="ios-arrow-forward" *ngIf="!recursos[tipo_clase.CUR_CODIGO].open"></ion-icon>
+                      <ion-icon item-right ios="ios-arrow-down" md="ios-arrow-down" *ngIf="recursos[tipo_clase.CUR_CODIGO].open"></ion-icon>
+                      <ion-row style="font-size: 14px; font-weight: bold;">
+                        <ion-col col-12 style="text-align: center; padding-left: 0 !important; font-weight: bold;">
+                          RECURSOS
+                        </ion-col>
+                      </ion-row>
+                    </button> 
+
+                    <ion-list *ngIf="recursos[tipo_clase.CUR_CODIGO].open" no-padding style="margin: 0px;">
+
+                      <ion-row style="background-color: #9fa8da; color: white;">
+                        <ion-col col-5>
+                          DESCRIPCIÓN
+                        </ion-col>
+                        <ion-col col-2>
+                          EXTENSIÓN
+                        </ion-col>
+                        <ion-col col-2>
+                          TAMAÑO
+                        </ion-col>
+                        <ion-col col-3>
+                          SESIÓN CLASE
+                        </ion-col>
+                      </ion-row>
+
+                      <div *ngIf="recursos[tipo_clase.CUR_CODIGO].length==0">
+                          No hay registro de Recursos
+                        
+                      </div>
+
+                      <div *ngFor="let tipo_recurso_key of recursos[tipo_clase.CUR_CODIGO] | keys">
+                        
+                        
+
+                        <div *ngIf="tipo_recurso_key != 'open'" >
+                          <ion-row style="background-color: #7986cb; color: white; font-weight: bold;">
+                            <ion-col col-12>
+                              {{recursos[tipo_clase.CUR_CODIGO][tipo_recurso_key].TIPO_NOMBRE}}
+                            </ion-col>
+                          </ion-row>
+                          <div *ngFor="let recurso_key of recursos[tipo_clase.CUR_CODIGO][tipo_recurso_key].RECURSOS | keys">
+                            <ion-row>
+                              <ion-col col-5>
+                                <p>{{recursos[tipo_clase.CUR_CODIGO][tipo_recurso_key].RECURSOS[recurso_key].REC_DESCRIPCION}}</p>
+                               
+                              </ion-col>
+                              <ion-col col-2>
+                                {{recursos[tipo_clase.CUR_CODIGO][tipo_recurso_key].RECURSOS[recurso_key].REC_EXTENSION}}
+                              </ion-col>
+                              <ion-col col-2>
+                                {{recursos[tipo_clase.CUR_CODIGO][tipo_recurso_key].RECURSOS[recurso_key].REC_TAM}}
+                                
+                              </ion-col>
+                              <ion-col col-3>
+                               
+                              </ion-col>
+                            </ion-row>
+                            
+                            <!--<div *ngFor="let recurso of recursos[tipo_clase.CUR_CODIGO][recurso_key].RECURSOS">
+                              {{recurso.REC_DESCRIPCION}}
+                            </div>-->
+                          </div>
+                          
+                        
+                        </div>
+                        
+                        
+                        
+                      </div>
+
+                      
+                    </ion-list>
+                 
+                  </div>
+                </ion-list><!---->
+                      
+              </ion-list>
+            </ion-list-header>
+          </ion-list>
+            
+        </div>
+      </ion-item>
+    </div>
+  </div>
+
+</ion-content>

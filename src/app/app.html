@@ -1,0 +1,107 @@
+<!--<ion-menu [content]="content">
+  <ion-content>
+
+    <div class="menu-header">
+      <img src="assets/img/background3.jpg">
+      <div class="menu-header-content">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>
+            <div class="image-cropper">
+              <div class="rounded" [ngStyle]="{ 'background-image': 'url(  http://chitita.uta.cl/fotos/' + user?.foto +')' }"></div>
+            </div>
+          </ion-col>
+          <ion-col col-8 style="padding-top: 28px;">
+            <P><b>{{user?.personal.PNA_NOM}}&nbsp;{{user?.personal.PNA_APAT}}</b></P>
+            <p>{{user?.personal.PER_NRUT}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      </div>
+    </div>
+    
+    <ion-list class="menu-list">
+      <button menuClose ion-item *ngFor="let page of pages" [class.activeHighLight]="checkActive(page)" (click)="openPage(page)">
+        <ion-icon class="menu-icon" color="purpl" name="{{page.icon}}" item-left></ion-icon>
+        <h3 class="item-menu">{{page.title}}</h3>
+      
+      </button>
+    </ion-list>
+
+    <ion-footer>
+    <button menuClose ion-item (click)="logout()" style="padding-bottom: 4px; padding-top: 3px;">
+      <ion-icon class="menu-icon" style="margin-top: 0px; margin-bottom: 0px; font-size: 30px;" color="purpl" name="ai-exit" item-left></ion-icon>
+      <h3 class="item-menu">Salir</h3>
+    </button>
+  </ion-footer>
+  </ion-content>
+
+ 
+
+</ion-menu>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>-->
+
+<ion-menu [content]="content">
+  <ion-content>
+    <div class="header">
+      <div class="headerContent">
+
+        <figure class="perfilPicture">
+          <!-- glow status -->
+          <div class="glow">
+            <div class="reveal-circle"></div>
+            <div class="reveal-glow"></div>
+          </div>
+          <!--// glow status -->
+          <div class="image-cropper">
+              <div class="rounded" style="background-color: green" [ngStyle]="{ 'background-image': 'url(  http://chitita.uta.cl/fotos/' + user?.foto +')' }"></div>
+          </div>
+          <!--<img src="http://chitita.uta.cl/fotos/0183139614.JPG" />-->
+        </figure>
+        <h2>{{user?.personal.PNA_NOM | capitalize}}</h2>
+        <small>
+          <i class="fa fa-star" aria-hidden="true"></i> Estudiante
+        </small>
+
+      </div>
+    </div>
+    <ion-list>
+      <ion-item menuClose *ngFor="let page of pages" (click)="openPage(page)">
+        <i class="{{page.icon}}" item-left></i> {{page.title}}
+        <ion-badge *ngIf="page.title=='Mensajes'" item-right>260k</ion-badge>
+      </ion-item>
+      <ion-item menuClose (click)="logout()">
+        <i class="fa fa-cog" item-left></i> Cerrar Sesión
+      </ion-item>
+      <!--<ion-item menuClose>
+        <i class="fa fa-home" item-left></i> Inicio
+      </ion-item>
+      <ion-item menuClose>
+        <i class="fa fa-user" item-left></i> Perfil
+      </ion-item>
+      <ion-item menuClose>
+        <i class="fa fa-bell" item-left></i> Notificaciones
+        <ion-badge item-right>260k</ion-badge>
+      </ion-item>
+      <ion-item menuClose>
+        <i class="fa fa-envelope" item-left></i> Mensajes
+      </ion-item>
+       <ion-item menuClose>
+        <i class="fa fa-book" item-left></i> Asignaturas
+      </ion-item>-->
+      <!--<ion-item menuClose>
+        <i class="fa fa-cog" item-left></i> Progreso
+      </ion-item>
+      <ion-item menuClose>
+        <i class="fa fa-cog" item-left></i> Configuración
+      </ion-item>-->
+    </ion-list>
+    <footer>
+       <strong>UTA Móvil</strong>. © 2017 <br> Todos los derechos reservados.
+    </footer>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
