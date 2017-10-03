@@ -39,14 +39,12 @@ export class LoginPage implements OnInit{
     
     //GRUPO DE VALIDACIONES PARA EL FORMULARIO
     this.loginForm = this.fb.group({
-      rut: ["183139614",   Validators.compose([ Validators.required, Validators.minLength(12), Validators.maxLength(12) ])],
-      clave: ["08/12/1992", Validators.compose([ Validators.required, Validators.minLength(8) ])],
+      rut: ["",   Validators.compose([ Validators.required, Validators.minLength(12), Validators.maxLength(12) ])],
+      clave: ["", Validators.compose([ Validators.required, Validators.minLength(8) ])],
     });
   }
 
-  ionViewDidLoad() {
-    
-  }
+  ionViewDidLoad() {}
 
   ngOnInit() {
     

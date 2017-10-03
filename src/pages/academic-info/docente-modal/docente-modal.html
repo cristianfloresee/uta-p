@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Docente</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+      <ion-icon name='bulb'></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1>{{parametros.NOMBRE}}</h1>
+  <h3>{{parametros.EMAIL}}</h3>
+  <button ion-button color="danger" (click)="enviarEmail()">Enviar Email</button>
+  <button ion-button (click)="llamadaTelefonica()">Realizar Llamada</button>
+  <button ion-button (click)="call()">Llamada</button>
+  <button ion-button (click)="recurso()">WORD</button>
+  <button ion-button (click)="recurso1()">WORD1</button>
+  <button ion-button (click)="recurso2()">WORD2</button>
+  <button ion-button (click)="download()">DESCARGAR</button>
+  
+  <img src={{photoUrl}} />
+  
+  
+</ion-content>
+<ion-footer>
+  <button ion-button full color="danger" (click)="dismiss()">CERRAR
+      </button>
+</ion-footer>

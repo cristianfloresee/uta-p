@@ -14,6 +14,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OneSignal } from '@ionic-native/onesignal';
+import { FileOpener } from '@ionic-native/file-opener';
+import { File } from '@ionic-native/file';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 
 //SERVICIOS 
 import { UtaService } from './../providers/uta-service';
@@ -53,6 +56,10 @@ import { PipesModule } from './pipes.module';
     StatusBar,
     SplashScreen,
     OneSignal,
+    FileOpener,
+    File,
+    FileTransfer,
+    FileTransferObject,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

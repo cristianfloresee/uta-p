@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
+
+//SERVICIOS
 import { StorageService } from './../../providers/storage-service';
 
 @IonicPage()
@@ -17,22 +19,25 @@ export class AcademicInfoPage {
   asistencia;
   recursos;
 
+  recurso_url = 'https://academico.uta.cl/';
+
   //ULTIMO RAMO ABIERTO (VALOR 100 PARA INDICAR QUE NO HAY NINGUN RAMO ABIERTO)
   last_isubject_open=100; 
   last_jsubject_open=100;
-  ultima_evaluacion_abierta=100;
-  
+  evaluaciones_abiertas = [];
+  asistencias_abiertas = [];
+  recursos_abiertos = [];
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public _storage: StorageService,
+    public modalCtrl: ModalController
   ) {}
 
   ionViewDidLoad() {
     console.log('Página de Información Académica Cargada...');
     
-    //CARGA DATOS PERIODO DEL STORAGE
     this._storage.getPeriodo().then( data => {
       this.periodos = data;   
       console.log("periodos desde db: ", this.periodos);
@@ -74,25 +79,61 @@ export class AcademicInfoPage {
       //SI ESTOY ABRIENDO UN SEGUNDO RAMO
       if(j!=this.last_jsubject_open){
         console.log("abriendo segundo ramo. cierro el primero");
-        //CIERRO EL OTRO ABIERTO
+        
+        //CIERRO EL OTRO RAMO ABIERTO
         this.inscripciones[this.last_isubject_open][this.last_jsubject_open].open = false;
         this.last_isubject_open=i;
         this.last_jsubject_open=j;
-        if(this.ultima_evaluacion_abierta!=100){
-          this.evaluaciones[this.ultima_evaluacion_abierta].open=false;
-        this.ultima_evaluacion_abierta=100;
-        }
+
+        //CIERRO LAS EVALUACIONES ABIERTAS
+        this.evaluaciones_abiertas.map((data)=>{
+          this.evaluaciones[data].open = false;
+        });
+        this.evaluaciones_abiertas = [];
+        console.log("evaluaciones abiertas:", this.evaluaciones_abiertas);
+
+        //CIERRO LAS ASISTENCIAS ABIERTAS
+        this.asistencias_abiertas.map((data)=>{
+          this.asistencia[data].open = false;
+        });
+        this.asistencias_abiertas = [];
+        console.log("asistencias abiertas:", this.asistencias_abiertas);
+
+        //CIERRO LOS RECURSOS ABIERTOS
+        this.recursos_abiertos.map((data)=>{
+          this.recursos[data].open = false;
+        });
+        this.recursos_abiertos = [];
+        console.log("recursos abiertos:", this.recursos_abiertos);
 
       }else{
+
         //SI ESTOY CERRANDO EL MISMO RAMO
         if(this.inscripciones[i][j].open == false){
           console.log("cerrando mismo ramo: borro el ultimo ramo abierto porque cerre este");
           this.last_isubject_open = 100;
           this.last_jsubject_open = 100;
-          if(this.ultima_evaluacion_abierta!=100){
-            this.evaluaciones[this.ultima_evaluacion_abierta].open=false;
-            this.ultima_evaluacion_abierta=100;
-          }
+
+          //CIERRO LAS EVALUACIONES ABIERTAS
+          this.evaluaciones_abiertas.map((data)=>{
+            this.evaluaciones[data].open = false;
+          });
+          this.evaluaciones_abiertas = [];
+          console.log("evaluaciones abiertas:", this.evaluaciones_abiertas);
+
+          //CIERRO LAS ASISTENCIAS ABIERTAS
+          this.asistencias_abiertas.map((data)=>{
+            this.asistencia[data].open = false;
+          });
+          this.asistencias_abiertas = [];
+          console.log("asistencias abiertas:", this.asistencias_abiertas);
+
+          //CIERRO LOS RECURSOS ABIERTOS
+          this.recursos_abiertos.map((data)=>{
+            this.recursos[data].open = false;
+          });
+          this.recursos_abiertos = [];
+          console.log("recursos abiertos:", this.recursos_abiertos);
         }
       }
     }
@@ -102,17 +143,22 @@ export class AcademicInfoPage {
   }
 
   abrirEvaluaciones(cod_curso){
+
     console.log("Abrir Evaluaciones");
     console.log("CUR-CODIGO: ", cod_curso);
     this.evaluaciones[cod_curso].open = !this.evaluaciones[cod_curso].open;
     
     console.log("evaluaciones[",cod_curso,"]: ", this.evaluaciones[cod_curso].open);
     if(this.evaluaciones[cod_curso].open == false){
-      console.log("cerrando evaluaciones");
-      this.ultima_evaluacion_abierta=100;
+      
+      console.log("cerrando evaluacion");
+      this.evaluaciones_abiertas = this.evaluaciones_abiertas.filter((evaluacion) => evaluacion != cod_curso );
+      console.log("evaluaciones abiertas:", this.evaluaciones_abiertas);
+    
     }else{
       console.log("abriendo evaluaciones");
-      this.ultima_evaluacion_abierta=cod_curso;
+      this.evaluaciones_abiertas.push(cod_curso);
+      console.log("evaluaciones abiertas:", this.evaluaciones_abiertas);
     }
   }
 
@@ -120,13 +166,51 @@ export class AcademicInfoPage {
     console.log("Abrir Asistencia");
     console.log("CUR-CODIGO: ", cod_curso);
     this.asistencia[cod_curso].open = !this.asistencia[cod_curso].open;
+
     console.log("asistencia[",cod_curso,"]: ", this.asistencia[cod_curso].open);
+    if(this.asistencia[cod_curso].open == false){
+      
+      console.log("cerrando evaluacion");
+      this.asistencias_abiertas = this.asistencias_abiertas.filter((asistencia) => asistencia != cod_curso );
+      console.log("asistencias abiertas:", this.asistencias_abiertas);
+    
+    }else{
+      console.log("abriendo asistencias");
+      this.asistencias_abiertas.push(cod_curso);
+      console.log("asistencias abiertas:", this.asistencias_abiertas);
+    }
   }
   
   abrirRecursos(cod_curso){
     console.log("Abrir Recursos");
     console.log("CUR-CODIGO: ", cod_curso);
     this.recursos[cod_curso].open = !this.recursos[cod_curso].open;
+
     console.log("recursos[",cod_curso,"]: ", this.recursos[cod_curso].open);
+    if(this.recursos[cod_curso].open == false){
+      
+      console.log("cerrando recurso");
+      this.recursos_abiertos = this.recursos_abiertos.filter((recurso) => recurso != cod_curso );
+      console.log("recursos abiertos:", this.recursos_abiertos);
+    
+    }else{
+      console.log("abriendo recursos");
+      this.recursos_abiertos.push(cod_curso);
+      console.log("recursos abiertos:", this.recursos_abiertos);
+    }
+  }
+
+  abrirModalDocente(docente){
+
+    console.log(docente);
+    this.modalCtrl.create('DocenteModal', {docente}, { cssClass: 'inset-modal' })
+                  .present();
+  }
+
+  abrirModalRecurso(recurso){
+
+    console.log(recurso);
+    this.modalCtrl.create('RecursoModal', {recurso})
+                  .present();
   }
 }
