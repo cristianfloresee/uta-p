@@ -4,6 +4,9 @@ import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angu
 //SERVICIOS
 import { StorageService } from './../../providers/storage-service';
 
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
+
 @IonicPage()
 @Component({
   selector: 'page-academic-info',
@@ -32,7 +35,9 @@ export class AcademicInfoPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public _storage: StorageService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private browserTab: BrowserTab,
+    private iab: InAppBrowser
   ) {}
 
   ionViewDidLoad() {
@@ -207,10 +212,65 @@ export class AcademicInfoPage {
                   .present();
   }
 
-  abrirModalRecurso(recurso){
+  abrirModalRecurso1(recurso){
+    
+    /*INAPPBROWSE
+    const options: InAppBrowserOptions = {
+      "location": "no", 
+      "toolbar": "no",
+      "hidden": "no"
+    };
 
-    console.log(recurso);
+    const browser = this.iab.create('https://docs.google.com/gview?url=https://academico.uta.cl/cursos/2016-2/0001251/recursos/r-6.ppt', '_self', options);
+    browser.show();
+    */
+    
+
+
+    /*BROWSER-TAB
+    this.browserTab.isAvailable()
+    .then((isAvailable: boolean) => {
+
+      if (isAvailable) {
+
+        this.browserTab.openUrl('https://docs.google.com/gview?url=https://academico.uta.cl/cursos/2016-2/0001251/recursos/r-6.ppt');
+
+      } else {}
+    }); 
+    */
+
+    
+    //console.log(recurso);
     this.modalCtrl.create('RecursoModal', {recurso})
                   .present();
   }
+
+  abrirModalRecurso2(recurso){
+
+    const options: InAppBrowserOptions = {
+      "location": "no", 
+      "toolbar": "no",
+      "hidden": "yes",
+      "zoom": "yes",
+      "hardwareback": "yes"
+    };
+
+    const browser = this.iab.create('https://docs.google.com/gview?url=https://academico.uta.cl/cursos/2016-2/0001251/recursos/r-6.ppt', '_blank', options);
+    browser.show();
+  }
+
+  abrirModalRecurso3(recurso){
+
+    const options: InAppBrowserOptions = {
+      "location": "no", 
+      "toolbar": "no",
+      "hidden": "no",
+      "zoom": "no",
+      "hardwareback": "no"
+    };
+
+    const browser = this.iab.create('https://docs.google.com/gview?url=https://academico.uta.cl/cursos/2016-2/0001251/recursos/r-6.ppt', '_blank', options);
+    browser.show();
+  }
+
 }

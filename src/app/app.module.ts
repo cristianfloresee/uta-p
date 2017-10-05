@@ -17,6 +17,9 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 //SERVICIOS 
 import { UtaService } from './../providers/uta-service';
@@ -60,6 +63,9 @@ import { PipesModule } from './pipes.module';
     File,
     FileTransfer,
     FileTransferObject,
+    BrowserTab,
+    InAppBrowser,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
